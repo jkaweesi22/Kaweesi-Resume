@@ -7,7 +7,7 @@ A single-page HTML resume for **Jackline Namanda**, focused on QA leadership, re
 - **Contact** — Location (Tacoma, WA), email, phone, and GitHub profile link
 - **Skills** — Program management, QA & testing, cloud & DevOps, software development, AI, UI/UX, and documentation
 - **Employment** — Workerbee Inc, Otic Group, Amazon Prime
-- **Featured on GitHub** — Cards link to **InHim** (`jkaweesi22/InHim`) and **github-delivery-operating-system** (`Phaneroo/...`), with portfolio shortcuts to `inhim/` and `github-delivery-operating-system/`
+- **Featured on GitHub Pages** — Cards link to the **project pages** on this site (`inhim/`, `github-delivery-operating-system/`). A line under the heading links to the **source repositories** on GitHub.
 - **In Him — Daily Scripture (project page)** — `inhim/index.html` — GitHub links use **`jkaweesi22`** (matches this repo’s `origin`). Forks should search-replace if your handle differs.
 - **GitHub Delivery Operating System** — `github-delivery-operating-system/index.html` — landing page for the Delivery OS framework (npm install, workflows table, docs links). Points at the public [Phaneroo](https://github.com/Phaneroo/github-delivery-operating-system) repo and npm package.
 
@@ -27,11 +27,11 @@ This repo includes [`.github/workflows/deploy-pages.yml`](.github/workflows/depl
 
 Open `inhim/index.html` locally with the same static server as the resume to preview.
 
-### Editing Featured on GitHub
+### Editing Featured on GitHub Pages
 
-1. The header GitHub link uses **`jkaweesi22`** (see `index.html`). Change it if you fork under another account.
-2. Each card: update `href`, visible repo name, description, and meta line as needed.
-3. To add another project, duplicate an entire `<li class="repo-card">` … `</li>` block inside `.repo-grid` and add a portfolio link in the intro line if you create a matching subfolder page.
+1. Card `href`s should point at **project folders** on this site (e.g. `inhim/`), not `github.com` URLs.
+2. Keep **source repo** links in the intro paragraph (`repo-note`) so visitors can still open code on GitHub.
+3. To add another project, add a subfolder with `index.html`, duplicate a `<li class="repo-card">` block, and link both the card and a source line.
 
 ## View locally
 
