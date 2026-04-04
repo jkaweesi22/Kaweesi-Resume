@@ -4,7 +4,7 @@ A single-page HTML resume for **Jackline Namanda**, focused on QA leadership, re
 
 ## Contents
 
-- **Contact** — Location (Tacoma, WA), email, phone, and GitHub profile link
+- **Contact** — Location (Tacoma, WA), email, and GitHub profile link
 - **Skills** — Program management, QA & testing, cloud & DevOps, software development, AI, UI/UX, and documentation
 - **Employment** — Workerbee Inc, Otic Group, Amazon Prime
 - **Featured on GitHub Pages** — Cards link to the **project pages** on this site (`inhim/`, `github-delivery-operating-system/`).
