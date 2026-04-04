@@ -7,27 +7,28 @@
     <title>Jackline Namanda — Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #14121a;
-            --ink-soft: #3d3848;
-            --muted: #5c5668;
-            --line: #e4e0ec;
-            --line-strong: #c9c3d6;
+            --ink: #0f172a;
+            --ink-soft: #334155;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --line-strong: #cbd5e1;
             --surface: #ffffff;
-            --page: #f3f1f7;
-            --accent: #3d2f6b;
-            --accent-soft: rgba(61, 47, 107, 0.08);
-            --accent-glow: rgba(61, 47, 107, 0.15);
-            --radius: 14px;
-            --radius-sm: 10px;
-            --shadow: 0 1px 2px rgba(20, 18, 26, 0.04), 0 8px 24px rgba(20, 18, 26, 0.06);
-            --shadow-hover: 0 4px 12px rgba(20, 18, 26, 0.08), 0 16px 40px rgba(61, 47, 107, 0.1);
-            --max: 44rem;
-            --pad: clamp(1.15rem, 4.5vw, 2.25rem);
-            --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-            --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+            --page: #f8fafc;
+            --accent: #0d9488;
+            --accent-dark: #0f766e;
+            --accent-soft: rgba(13, 148, 136, 0.07);
+            --accent-muted: rgba(13, 148, 136, 0.18);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 20px rgba(15, 23, 42, 0.06);
+            --shadow-hover: 0 2px 8px rgba(15, 23, 42, 0.06), 0 12px 32px rgba(15, 23, 42, 0.08);
+            --max: 46rem;
+            --pad: clamp(1.25rem, 4.5vw, 2.5rem);
+            --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+            --font-body: "Inter", system-ui, -apple-system, sans-serif;
         }
 
         *,
@@ -42,6 +43,11 @@
             scroll-behavior: smooth;
         }
 
+        ::selection {
+            background: var(--accent-soft);
+            color: var(--ink);
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -49,129 +55,150 @@
             color: var(--ink);
             font-family: var(--font-body);
             font-size: 0.9375rem;
-            line-height: 1.55;
-            background:
-                radial-gradient(1200px 600px at 10% -10%, rgba(61, 47, 107, 0.07), transparent 50%),
-                radial-gradient(900px 500px at 100% 0%, rgba(120, 90, 180, 0.06), transparent 45%),
-                var(--page);
+            line-height: 1.6;
+            font-feature-settings: "kern" 1, "liga" 1;
+            background: var(--page);
         }
 
         .resume {
             max-width: var(--max);
             margin: 0 auto;
             background: var(--surface);
-            border-radius: calc(var(--radius) + 6px);
+            border-radius: calc(var(--radius) + 4px);
             box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--line);
             overflow: hidden;
+            position: relative;
+        }
+
+        .resume::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+            opacity: 0.95;
         }
 
         .resume__inner {
-            padding: clamp(1.75rem, 5vw, 2.75rem);
+            padding: clamp(2rem, 5vw, 3rem);
+            padding-top: clamp(2.25rem, 5vw, 3.25rem);
         }
 
         /* Header */
         .hero {
             text-align: center;
-            padding-bottom: 1.5rem;
-            margin-bottom: 0.25rem;
+            padding-bottom: 1.75rem;
+            margin-bottom: 0.35rem;
             position: relative;
+            border-bottom: 1px solid var(--line);
         }
 
-        .hero::after {
-            content: "";
-            display: block;
-            width: 3rem;
-            height: 3px;
-            margin: 1.25rem auto 0;
-            border-radius: 2px;
-            background: linear-gradient(90deg, var(--accent), #7c6aa8);
+        .hero__kicker {
+            margin: 0 0 0.85rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
         }
 
         .hero h1 {
-            margin: 0 0 0.65rem;
+            margin: 0 0 0.75rem;
             font-family: var(--font-display);
-            font-size: clamp(1.85rem, 5vw, 2.35rem);
+            font-size: clamp(1.9rem, 4.5vw, 2.5rem);
             font-weight: 700;
-            font-variation-settings: "SOFT" 50, "WONK" 0.5;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
             color: var(--ink);
-            line-height: 1.15;
+            line-height: 1.12;
         }
 
         .tagline {
-            margin: 0 0 1rem;
-            font-size: 0.9rem;
+            margin: 0 0 1.25rem;
+            font-size: 0.9375rem;
             font-weight: 500;
-            color: var(--accent);
-            letter-spacing: 0.02em;
+            color: var(--ink-soft);
+            letter-spacing: -0.01em;
+            max-width: 32rem;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.45;
         }
 
         .contact {
             font-style: normal;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             color: var(--muted);
-            line-height: 1.75;
+            line-height: 1.65;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.35rem 0.65rem;
+            gap: 0.5rem 0.85rem;
             align-items: center;
         }
 
         .contact .sep {
-            opacity: 0.45;
+            opacity: 0.4;
             user-select: none;
         }
 
         .contact a {
-            color: var(--ink-soft);
+            color: var(--accent-dark);
             text-decoration: none;
             font-weight: 500;
-            border-bottom: 1px solid transparent;
+            border-bottom: 1px solid var(--accent-muted);
             transition: color 0.15s ease, border-color 0.15s ease;
         }
 
         .contact a:hover,
         .contact a:focus-visible {
-            color: var(--accent);
-            border-bottom-color: var(--accent-glow);
+            color: var(--ink);
+            border-bottom-color: var(--ink-soft);
+        }
+
+        .contact a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
         }
 
         /* Sections */
         .section {
-            margin-top: 1.85rem;
+            margin-top: 2.25rem;
         }
 
         .section:first-of-type {
-            margin-top: 0.5rem;
+            margin-top: 1.75rem;
         }
 
         .section-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin: 0 0 1.1rem;
-            font-family: var(--font-display);
-            font-size: 1.05rem;
+            display: block;
+            margin: 0 0 1.15rem;
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--muted);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--line);
+            position: relative;
         }
 
-        .section-title::before {
+        .section-title::after {
             content: "";
-            flex: 0 0 4px;
-            height: 1.15em;
-            border-radius: 2px;
-            background: linear-gradient(180deg, var(--accent), #9b87c9);
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 2.5rem;
+            height: 2px;
+            background: var(--accent);
         }
 
         .section-title span {
-            flex: 1;
-            padding-bottom: 0.35rem;
-            border-bottom: 1px solid var(--line);
+            display: inline;
         }
 
         /* Skills */
@@ -183,16 +210,17 @@
 
         .skills-list li {
             position: relative;
-            padding: 0.65rem 0 0.65rem 1rem;
-            border-left: 2px solid var(--line);
-            margin-bottom: 0.35rem;
-            transition: border-color 0.15s ease, background 0.15s ease;
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 0.7rem 0 0.7rem 0;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 0;
+        }
+
+        .skills-list li:last-child {
+            border-bottom: none;
         }
 
         .skills-list li:hover {
-            border-left-color: var(--accent);
-            background: var(--accent-soft);
+            background: transparent;
         }
 
         .skills-list strong {
@@ -202,9 +230,9 @@
 
         /* Jobs */
         .job {
-            padding: 1.15rem 1.15rem 1.1rem;
+            padding: 1.25rem 1.35rem;
             margin-bottom: 1rem;
-            background: linear-gradient(145deg, #faf9fc 0%, #fff 60%);
+            background: #fafbfc;
             border: 1px solid var(--line);
             border-radius: var(--radius);
             transition: box-shadow 0.2s ease, border-color 0.2s ease;
@@ -225,45 +253,46 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 0.5rem 1rem;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
 
         .job-title {
             margin: 0;
             font-family: var(--font-display);
-            font-size: 1rem;
+            font-size: 1.0625rem;
             font-weight: 700;
             color: var(--ink);
             line-height: 1.35;
             flex: 1 1 14rem;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.015em;
         }
 
         .job-meta {
             margin: 0;
-            font-size: 0.8125rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--ink-soft);
             white-space: nowrap;
-            background: var(--accent-soft);
-            padding: 0.25rem 0.65rem;
-            border-radius: 999px;
+            background: var(--surface);
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            border: 1px solid var(--line);
         }
 
         .job-location {
             font-size: 0.8125rem;
             color: var(--muted);
-            margin: 0 0 0.65rem;
+            margin: 0 0 0.75rem;
             font-weight: 500;
         }
 
         .job ul {
             margin: 0;
-            padding-left: 1.15rem;
+            padding-left: 1.2rem;
         }
 
         .job li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.55rem;
             color: var(--ink-soft);
         }
 
@@ -297,30 +326,34 @@
         .repo-card__link {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.45rem;
             height: 100%;
-            padding: 1rem 1.1rem;
+            padding: 1.1rem 1.2rem;
             text-decoration: none;
             color: inherit;
-            background: var(--surface);
+            background: #fafbfc;
             border: 1px solid var(--line);
             border-radius: var(--radius-sm);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            transition: box-shadow 0.18s ease, border-color 0.18s ease;
         }
 
         .repo-card__link:hover,
         .repo-card__link:focus-visible {
-            transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
-            border-color: var(--accent);
+            border-color: var(--accent-muted);
             outline: none;
+        }
+
+        .repo-card__link:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
         .repo-card__name {
             font-family: var(--font-body);
-            font-size: 0.9375rem;
-            font-weight: 700;
-            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-dark);
             display: flex;
             align-items: center;
             gap: 0.45rem;
@@ -328,40 +361,53 @@
 
         .repo-card__name svg {
             flex-shrink: 0;
-            opacity: 0.85;
+            opacity: 0.75;
+            color: var(--accent);
         }
 
         .repo-card__desc {
             font-size: 0.8125rem;
-            color: var(--muted);
-            line-height: 1.45;
+            color: var(--ink-soft);
+            line-height: 1.5;
         }
 
         .repo-card__meta {
-            font-size: 0.72rem;
+            font-size: 0.6875rem;
             font-weight: 600;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--line-strong);
+            color: var(--muted);
             margin-top: auto;
-            padding-top: 0.35rem;
+            padding-top: 0.4rem;
         }
 
         .repo-note {
-            margin: 0.75rem 0 0;
-            font-size: 0.78rem;
-            color: var(--muted);
-            font-style: italic;
+            margin: 0 0 1rem;
+            font-size: 0.8125rem;
+            color: var(--ink-soft);
+            line-height: 1.55;
+        }
+
+        .repo-note a {
+            color: var(--accent-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-muted);
+        }
+
+        .repo-note a:hover {
+            color: var(--ink);
+            border-bottom-color: var(--ink-soft);
         }
 
         /* Footer */
         footer {
-            margin-top: 2rem;
-            padding-top: 1.25rem;
+            margin-top: 2.25rem;
+            padding-top: 1.35rem;
             border-top: 1px solid var(--line);
             text-align: center;
             font-size: 0.75rem;
             color: var(--muted);
+            letter-spacing: 0.02em;
         }
 
         @media print {
@@ -376,6 +422,10 @@
                 border: none;
             }
 
+            .resume::before {
+                display: none;
+            }
+
             .resume__inner {
                 padding: 0.6in;
             }
@@ -383,11 +433,6 @@
             .job:hover,
             .repo-card__link:hover {
                 box-shadow: none;
-                transform: none;
-            }
-
-            .skills-list li:hover {
-                background: transparent;
             }
 
             .contact a {
@@ -405,8 +450,9 @@
     <div class="resume">
         <div class="resume__inner">
             <header class="hero">
+                <p class="hero__kicker">Program &amp; quality leadership</p>
                 <h1>Jackline Namanda</h1>
-                <p class="tagline">QA Lead · Release Management · Technical Program Management</p>
+                <p class="tagline">QA Lead · Release management · Technical program management</p>
                 <address class="contact">
                     <span>Tacoma, WA 98374</span>
                     <span class="sep" aria-hidden="true">·</span>
