@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="In Him — Daily Scripture: a calm, KJV-centered Chrome New Tab with time-of-day rhythm, rotating backgrounds, and thoughtful shortcuts.">
+  <meta name="theme-color" content="#1a1625">
+  <title>In Him — Daily Scripture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0f0d14;
+      --bg-mid: #1a1625;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f0eb;
+      --text-soft: rgba(244, 240, 235, 0.72);
+      --muted: rgba(244, 240, 235, 0.5);
+      --dawn: #e8a87c;
+      --day: #f4d03f;
+      --dusk: #9b7ed9;
+      --accent: #c9a227;
+      --accent-glow: rgba(201, 162, 39, 0.35);
+      --radius: 20px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-ui: "Outfit", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg-deep);
+      overflow-x: hidden;
+    }
+
+    /* Ambient background */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 168, 124, 0.25), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(155, 126, 217, 0.12), transparent 50%),
+        radial-gradient(ellipse 50% 35% at 0% 80%, rgba(201, 162, 39, 0.08), transparent 45%),
+        linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, #12101a 100%);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 5vw, 3rem);
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: clamp(2.5rem, 8vw, 5rem);
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem 1.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--bg-deep);
+      background: linear-gradient(135deg, #f0e6d3 0%, var(--accent) 100%);
+      border: none;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 24px var(--accent-glow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .btn--ghost:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: clamp(3rem, 10vw, 6rem);
+    }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 8vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, rgba(244, 240, 235, 0.85) 50%, var(--dawn) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__lead {
+      max-width: 36rem;
+      margin: 0 auto 2rem;
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    .hero__cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Time rhythm strip */
+    .rhythm {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 52rem;
+      margin: 0 auto 4rem;
+    }
+
+    @media (max-width: 640px) {
+      .rhythm { grid-template-columns: 1fr; }
+    }
+
+    .rhythm-card {
+      position: relative;
+      padding: 1.5rem 1.25rem;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s;
+    }
+
+    .rhythm-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    .rhythm-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .rhythm-card--morning::before { background: linear-gradient(90deg, var(--dawn), transparent); }
+    .rhythm-card--day::before { background: linear-gradient(90deg, var(--day), transparent); }
+    .rhythm-card--evening::before { background: linear-gradient(90deg, var(--dusk), transparent); }
+
+    .rhythm-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .rhythm-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .rhythm-card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: clamp(3rem, 8vw, 5rem);
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-head h2 {
+      margin: 0 0 0.75rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-head p {
+      margin: 0 auto;
+      max-width: 38rem;
+      color: var(--text-soft);
+      font-size: 1.05rem;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature {
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .feature:hover {
+      border-color: rgba(201, 162, 39, 0.25);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .feature__icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(201, 162, 39, 0.12);
+      color: var(--accent);
+    }
+
+    .feature h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .feature p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    /* Quote block */
+    .quote-block {
+      position: relative;
+      max-width: 40rem;
+      margin: 0 auto 4rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid var(--border);
+    }
+
+    .quote-block::before {
+      content: "“";
+      position: absolute;
+      top: 0.5rem;
+      left: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(201, 162, 39, 0.25);
+    }
+
+    .quote-block p {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3vw, 1.6rem);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-soft);
+    }
+
+    /* Shortcuts */
+    .shortcuts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .kbd code {
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(201, 162, 39, 0.12);
+      padding: 0.2rem 0.45rem;
+      border-radius: 6px;
+    }
+
+    /* Privacy */
+    .privacy {
+      padding: 2rem;
+      border-radius: var(--radius);
+      background: rgba(46, 204, 113, 0.08);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      text-align: center;
+    }
+
+    .privacy h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #7dcea0;
+    }
+
+    .privacy p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--text-soft);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--text);
+      border-bottom-color: var(--accent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn:hover, .rhythm-card:hover { transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="nav">
+      <a class="logo" href="#">In <span>Him</span></a>
+      <nav class="nav-links" aria-label="Page">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="https://github.com/jkaweesi22/InHim" class="btn btn--ghost" rel="noopener noreferrer">View on GitHub</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <p class="hero__eyebrow">Chrome extension · New Tab</p>
+      <h1>Daily Scripture,<br>quietly reimagined.</h1>
+      <p class="hero__lead">
+        <strong>In Him — Daily Scripture</strong> replaces your new tab with a calm, minimal rhythm:
+        a time-aware greeting, a rotating backdrop, and King James scripture—plus favorites, filters, and keyboard shortcuts. Inspired by the focus of Momentum; anchored in scripture.
+      </p>
+      <div class="hero__cta">
+        <a class="btn" href="https://github.com/jkaweesi22/InHim" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          Source &amp; install
+        </a>
+        <a class="btn btn--ghost" href="#features">Explore features</a>
+      </div>
+    </section>
+
+    <div class="rhythm" role="presentation">
+      <div class="rhythm-card rhythm-card--morning">
+        <h3>Morning</h3>
+        <strong>Dawn</strong>
+        <p>Scripture and background tuned to the start of your day.</p>
+      </div>
+      <div class="rhythm-card rhythm-card--day">
+        <h3>Afternoon</h3>
+        <strong>Daylight</strong>
+        <p>A steady rhythm between meetings and deep work.</p>
+      </div>
+      <div class="rhythm-card rhythm-card--evening">
+        <h3>Evening</h3>
+        <strong>Dusk</strong>
+        <p>Wind down with the same structure, softer light.</p>
+      </div>
+    </div>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <h2>What this project is about</h2>
+        <p>
+          The web is loud. Your new tab does not have to be. In Him is a small, intentional surface:
+          truth first, beauty second, distraction never. Scripture is loaded locally; backgrounds come from Unsplash with a graceful gradient when images are unavailable.
+        </p>
+      </div>
+
+      <div class="quote-block">
+        <p>Every time you open a tab, you get one more chance to pause—and read.</p>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head">
+        <h2>Features</h2>
+        <p>Everything you need for a focused daily habit—nothing you don’t.</p>
+      </div>
+
+      <div class="features">
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>
+          </div>
+          <h3>KJV scripture corpus</h3>
+          <p>Verses ship with the extension from a local <code style="font-size:0.85em">scriptures.json</code> file—readable offline for the text itself.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Time-of-day blocks</h3>
+          <p>Morning, afternoon, and evening each keep their own scripture and background—persisted so your rhythm feels consistent.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <h3>Backgrounds &amp; fallback</h3>
+          <p>Unsplash-powered imagery with a tasteful gradient when the network or image fails—never a broken empty tab.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Favorites</h3>
+          <p>Save verses you return to often—overlay, quick select, and remove when you are done.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12 10 19 14 21 14 12 22 3"/></svg>
+          </div>
+          <h3>Section filter</h3>
+          <p>Browse all scripture sections or narrow to the one you are studying—without leaving the new tab.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Manifest V3</h3>
+          <p>Built for modern Chrome: a proper new-tab override with today’s extension platform.</p>
+        </article>
+      </div>
+
+      <div class="section" style="margin-top: 2.5rem;">
+        <div class="section-head">
+          <h2 style="font-size: 1.35rem;">Keyboard shortcuts</h2>
+          <p>Fast hands, calm screen.</p>
+        </div>
+        <div class="shortcuts">
+          <span class="kbd"><code>N</code> next scripture</span>
+          <span class="kbd"><code>B</code> next background</span>
+          <span class="kbd"><code>F</code> favorites</span>
+          <span class="kbd"><code>Esc</code> close overlay</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section privacy" id="privacy">
+      <h2>Privacy, by design</h2>
+      <p>No accounts. No analytics. Scripture stays local; only background images may load from Unsplash when you are online—nothing tracked for advertising.</p>
+    </section>
+
+    <footer>
+      <p>
+        In Him — Daily Scripture · A project by <a href="../index.html">Jackline Namanda</a>
+        · <a href="https://github.com/jkaweesi22/InHim" rel="noopener noreferrer">GitHub</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

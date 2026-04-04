@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GitHub Delivery Operating System — GitHub-native delivery governance: sprints, QA, dual approval, and optional Telegram. Install with npx.">
+  <meta name="theme-color" content="#0c1222">
+  <title>GitHub Delivery Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg0: #070b12;
+      --bg1: #0c1222;
+      --card: rgba(255, 255, 255, 0.035);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8edf7;
+      --soft: rgba(232, 237, 247, 0.72);
+      --muted: rgba(232, 237, 247, 0.45);
+      --cyan: #22d3ee;
+      --blue: #60a5fa;
+      --violet: #a78bfa;
+      --accent: #38bdf8;
+      --accent-dim: rgba(56, 189, 248, 0.15);
+      --radius: 18px;
+      --font-display: "Syne", system-ui, sans-serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg0);
+    }
+
+    .mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(ellipse 60% 50% at 100% 20%, rgba(167, 139, 250, 0.08), transparent 45%),
+        radial-gradient(ellipse 50% 40% at 0% 100%, rgba(34, 211, 238, 0.06), transparent 40%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 50%, #0a0f18 100%);
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: clamp(2rem, 6vw, 4rem);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      max-width: 16rem;
+      line-height: 1.25;
+    }
+
+    .logo small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--soft);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--card);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      background: var(--accent-dim);
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(167, 139, 250, 0.15));
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #fff;
+    }
+
+    .btn--primary:hover {
+      border-color: var(--accent);
+    }
+
+    .hero {
+      margin-bottom: 3rem;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff 0%, var(--cyan) 55%, var(--violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__lead {
+      margin: 0 0 1.75rem;
+      font-size: 1.1rem;
+      color: var(--soft);
+      max-width: 38rem;
+    }
+
+    .hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .hero__badges img {
+      height: 28px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .section {
+      margin-bottom: 2.75rem;
+    }
+
+    .section h2 {
+      margin: 0 0 1rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 0 0 1rem;
+      color: var(--soft);
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    .problem-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .problem-list li {
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: 0.95rem;
+      color: var(--soft);
+      padding-left: 2.75rem;
+      position: relative;
+    }
+
+    .problem-list li::before {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--violet);
+      box-shadow: 0 0 12px var(--violet);
+    }
+
+    .code-wrap {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      margin: 1rem 0 0;
+    }
+
+    .code-wrap .label {
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+    }
+
+    pre {
+      margin: 0;
+      padding: 1rem 1.15rem 1.15rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 1.65;
+      color: #bae6fd;
+      overflow-x: auto;
+    }
+
+    .hint {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 1.15rem;
+      color: var(--soft);
+    }
+
+    .steps li { margin-bottom: 0.5rem; }
+
+    .steps code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+    }
+
+    .links-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 520px) {
+      .links-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .link-card {
+      display: block;
+      padding: 1.1rem 1.2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .link-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .link-card strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .link-card span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--soft);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--soft);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .link-card:hover { transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="nav">
+      <a class="logo" href="#top">
+        <small>Project</small>
+        GitHub Delivery <span style="color: var(--cyan);">Operating System</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#why">Why</a>
+        <a href="#install">Install</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#docs">Docs</a>
+        <a class="btn btn--primary" href="https://www.npmjs.com/package/github-delivery-os" rel="noopener noreferrer">npm</a>
+        <a class="btn" href="https://github.com/Phaneroo/github-delivery-operating-system" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="hero__eyebrow">Delivery governance · GitHub-native · MIT</p>
+        <h1><span>Ship with structure.</span><br>Stay on GitHub.</h1>
+        <p class="hero__lead">
+          The <strong>GitHub Delivery Operating System</strong> (Delivery OS) is a framework for <strong>structured sprints</strong>, <strong>QA coordination</strong>, and <strong>collaborative production gates</strong>—embedded as workflows and templates <em>inside your repository</em>. No external orchestration SaaS required.
+        </p>
+        <div class="hero__badges">
+          <a href="https://socket.dev/npm/package/github-delivery-os" rel="noopener noreferrer" title="Socket.dev security overview">
+            <img src="https://badge.socket.dev/npm/package/github-delivery-os" width="200" height="28" alt="Socket badge for github-delivery-os" loading="lazy">
+          </a>
+        </div>
+        <div class="pill-row" aria-label="Highlights">
+          <span class="pill">npm: github-delivery-os</span>
+          <span class="pill">Direct-copy workflows</span>
+          <span class="pill">Dual approval</span>
+          <span class="pill">Optional Telegram</span>
+        </div>
+      </section>
+
+      <section class="section" id="why">
+        <h2>Why this exists</h2>
+        <p>Teams often coordinate delivery informally in GitHub—manual approvals, uneven sprint tracking, and ad hoc production sign-off. As you scale, that creates ambiguity, QA bottlenecks, and release risk.</p>
+        <p><strong>Delivery OS</strong> gives you repeatable intake, sprint orchestration, QA governance, and release gates—without replacing your CI/CD pipelines or how developers work day to day.</p>
+        <ul class="problem-list" aria-label="Problems addressed">
+          <li>Delivery ambiguity across teams</li>
+          <li>QA bottlenecks and unclear ownership</li>
+          <li>Informal production approvals</li>
+          <li>Cross-repo inconsistency</li>
+        </ul>
+      </section>
+
+      <section class="section" id="install">
+        <h2>Install in one command</h2>
+        <p>From your <strong>repository root</strong>, install workflows and issue templates into the current repo:</p>
+        <div class="code-wrap">
+          <div class="label">Terminal</div>
+          <pre>npx github-delivery-os install --with-templates .</pre>
+        </div>
+        <p class="hint">Add <code style="font-family: var(--font-mono); color: var(--cyan);">--with-labels</code> to create labels with the <code style="font-family: var(--font-mono); color: var(--cyan);">gh</code> CLI. Use <code style="font-family: var(--font-mono); color: var(--cyan);">--dry-run</code> to preview. Existing files are skipped by default; use <code style="font-family: var(--font-mono); color: var(--cyan);">--overwrite</code> when updating.</p>
+        <p class="hint">Also available: <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--soft);">status</span>, <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--soft);">uninstall</span> — see the repo README.</p>
+      </section>
+
+      <section class="section" id="workflows">
+        <h2>What gets installed</h2>
+        <p>Workflows and templates are <strong>copied into your repo</strong>. There is no <code style="font-family: var(--font-mono); font-size: 0.9em;">workflow_call</code> to a private host—everything runs as native Actions in your project.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Workflow</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>sprint-child-creator</td><td>Child issues from sprint planning (<code style="font-family: var(--font-mono); font-size: 0.85em;">SPRINT -</code> title)</td></tr>
+              <tr><td>auto-close-sprint</td><td>Burn-down, sprint health, auto-close at 100%</td></tr>
+              <tr><td>notify-release-approver</td><td>Ping approver when a production release issue opens</td></tr>
+              <tr><td>authorize-deployment</td><td>Dual approval (release + QA) → <code style="font-family: var(--font-mono); font-size: 0.85em;">ready-for-deploy</code></td></tr>
+              <tr><td>auto-assign-qa</td><td>Assign QA on <code style="font-family: var(--font-mono); font-size: 0.85em;">qa</code> / <code style="font-family: var(--font-mono); font-size: 0.85em;">qa-request</code></td></tr>
+              <tr><td>telegram-issues</td><td>Optional Telegram alerts</td></tr>
+              <tr><td>setup-labels</td><td>One-time label creation via Actions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="quickstart">
+        <h2>After install</h2>
+        <ol class="steps">
+          <li>Run <strong>Setup Labels</strong> from the Actions tab (or use <code>--with-labels</code>).</li>
+          <li>Set repository variables: <code>RELEASE_APPROVER</code>, <code>QA_APPROVER</code>, <code>QA_ASSIGNEES</code> (comma-separated).</li>
+          <li>Optionally add <code>TELEGRAM_BOT_TOKEN</code> and <code>TELEGRAM_CHAT_ID</code> for notifications.</li>
+        </ol>
+        <p style="margin-top: 1rem;">Use the <strong>Sprint Planning</strong> template with a title like <code style="font-family: var(--font-mono); font-size: 0.9em;">SPRINT - Sprint 12</code>; list one feature per line under <em>Sprint Features</em>. Child issues link with <code style="font-family: var(--font-mono); font-size: 0.9em;">Parent Sprint: #N</code>.</p>
+      </section>
+
+      <section class="section" id="docs">
+        <h2>Documentation &amp; links</h2>
+        <div class="links-grid">
+          <a class="link-card" href="https://phaneroo.github.io/github-delivery-operating-system/" rel="noopener noreferrer">
+            <strong>Official site</strong>
+            <span>Overview and quick start (GitHub Pages)</span>
+          </a>
+          <a class="link-card" href="https://www.npmjs.com/package/github-delivery-os" rel="noopener noreferrer">
+            <strong>npm package</strong>
+            <span>github-delivery-os — install &amp; versions</span>
+          </a>
+          <a class="link-card" href="https://github.com/Phaneroo/github-delivery-operating-system" rel="noopener noreferrer">
+            <strong>Source repository</strong>
+            <span>README, docs, issues, MIT license</span>
+          </a>
+          <a class="link-card" href="https://github.com/Phaneroo/github-delivery-operating-system/blob/main/docs/consumer-setup.md" rel="noopener noreferrer">
+            <strong>Consumer Setup</strong>
+            <span>Full install, variables, Telegram, uninstall</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        GitHub Delivery Operating System · Maintained in
+        <a href="https://github.com/Phaneroo/github-delivery-operating-system" rel="noopener noreferrer">open source</a>
+        · Portfolio:
+        <a href="../index.html">Resume</a>
+        ·
+        <a href="../inhim/">In Him — Daily Scripture</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

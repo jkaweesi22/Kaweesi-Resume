@@ -7,13 +7,31 @@ A single-page HTML resume for **Jackline Namanda**, focused on QA leadership, re
 - **Contact** — Location (Tacoma, WA), email, phone, and GitHub profile link
 - **Skills** — Program management, QA & testing, cloud & DevOps, software development, AI, UI/UX, and documentation
 - **Employment** — Workerbee Inc, Otic Group, Amazon Prime
-- **Featured on GitHub** — Card grid for repository links (edit URLs, titles, and descriptions in `index.html`)
+- **Featured on GitHub** — Cards link to **InHim** (`jkaweesi22/InHim`) and **github-delivery-operating-system** (`Phaneroo/...`), with portfolio shortcuts to `inhim/` and `github-delivery-operating-system/`
+- **In Him — Daily Scripture (project page)** — `inhim/index.html` — GitHub links use **`jkaweesi22`** (matches this repo’s `origin`). Forks should search-replace if your handle differs.
+- **GitHub Delivery Operating System** — `github-delivery-operating-system/index.html` — landing page for the Delivery OS framework (npm install, workflows table, docs links). Points at the public [Phaneroo](https://github.com/Phaneroo/github-delivery-operating-system) repo and npm package.
 
-### Adding GitHub repositories
+### GitHub Pages (GitHub Actions — recommended)
 
-1. Replace `YOUR_USERNAME` in the header GitHub link and in each repo `href`.
-2. For each project, update `project-one` / `project-two` (the visible name), the description line, and the link.
-3. To add another repo, duplicate an entire `<li class="repo-card">` … `</li>` block inside `.repo-grid`.
+This repo includes [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). It uploads the repository root as a static site on every push to **`main`** or **`master`** (and can be run manually under **Actions → Deploy GitHub Pages → Run workflow**).
+
+1. Push this repository to GitHub (e.g. `Kaweesi-Resume`).
+2. **Settings → Pages → Build and deployment:** set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Merge or push the workflow to **`main`** / **`master`**. The first run may ask you to approve workflow permissions once.
+4. After a successful run, the site base is `https://<username>.github.io/Kaweesi-Resume/`.
+   - **Resume:** `https://<username>.github.io/Kaweesi-Resume/` (root `index.html`).
+   - **In Him:** `https://<username>.github.io/Kaweesi-Resume/inhim/`.
+   - **Delivery OS:** `https://<username>.github.io/Kaweesi-Resume/github-delivery-operating-system/`.
+
+**Alternative:** you can still use **Deploy from a branch** (root `/`) instead of Actions; do not enable both at once for the same site.
+
+Open `inhim/index.html` locally with the same static server as the resume to preview.
+
+### Editing Featured on GitHub
+
+1. The header GitHub link uses **`jkaweesi22`** (see `index.html`). Change it if you fork under another account.
+2. Each card: update `href`, visible repo name, description, and meta line as needed.
+3. To add another project, duplicate an entire `<li class="repo-card">` … `</li>` block inside `.repo-grid` and add a portfolio link in the intro line if you create a matching subfolder page.
 
 ## View locally
 
@@ -35,3 +53,6 @@ Use the browser print dialog (File → Print or **Cmd+P** / **Ctrl+P**) and choo
 | File        | Description                    |
 | ----------- | ------------------------------ |
 | `index.html` | Resume markup and embedded CSS |
+| `inhim/index.html` | In Him — Daily Scripture project landing page (GitHub Pages) |
+| `github-delivery-operating-system/index.html` | GitHub Delivery OS — npm, workflows, documentation links |
+| `.github/workflows/deploy-pages.yml` | Workflow that deploys the static site to GitHub Pages |
