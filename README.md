@@ -7,7 +7,7 @@ A single-page HTML resume for **Jackline Namanda**, focused on QA leadership, re
 - **Contact** — Location (Tacoma, WA), email, phone, and GitHub profile link
 - **Skills** — Program management, QA & testing, cloud & DevOps, software development, AI, UI/UX, and documentation
 - **Employment** — Workerbee Inc, Otic Group, Amazon Prime
-- **Featured on GitHub Pages** — Cards link to the **project pages** on this site (`inhim/`, `github-delivery-operating-system/`). A line under the heading links to the **source repositories** on GitHub.
+- **Featured on GitHub Pages** — Cards link to the **project pages** on this site (`inhim/`, `github-delivery-operating-system/`).
 - **In Him — Daily Scripture (project page)** — `inhim/index.html` — GitHub links use **`jkaweesi22`** (matches this repo’s `origin`). Forks should search-replace if your handle differs.
 - **GitHub Delivery Operating System** — `github-delivery-operating-system/index.html` — landing page for the Delivery OS framework (npm install, workflows table, docs links). Points at the public [Phaneroo](https://github.com/Phaneroo/github-delivery-operating-system) repo and npm package.
 
@@ -30,8 +30,7 @@ Open `inhim/index.html` locally with the same static server as the resume to pre
 ### Editing Featured on GitHub Pages
 
 1. Card `href`s should point at **project folders** on this site (e.g. `inhim/`), not `github.com` URLs.
-2. Keep **source repo** links in the intro paragraph (`repo-note`) so visitors can still open code on GitHub.
-3. To add another project, add a subfolder with `index.html`, duplicate a `<li class="repo-card">` block, and link both the card and a source line.
+2. To add another project, add a subfolder with `index.html` and duplicate a `<li class="repo-card">` block.
 
 ## View locally
 

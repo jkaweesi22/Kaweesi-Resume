@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Resume of Jackline Namanda — QA Lead, Release Manager, and Technical Program Manager.">
+    <meta name="theme-color" content="#f1f5f9">
     <title>Jackline Namanda — Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +28,7 @@
             --shadow-hover: 0 2px 8px rgba(15, 23, 42, 0.06), 0 12px 32px rgba(15, 23, 42, 0.08);
             --max: 46rem;
             --pad: clamp(1.25rem, 4.5vw, 2.5rem);
+            --section-space: clamp(2.25rem, 5vw, 2.75rem);
             --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
             --font-body: "Inter", system-ui, -apple-system, sans-serif;
         }
@@ -55,18 +57,24 @@
             color: var(--ink);
             font-family: var(--font-body);
             font-size: 0.9375rem;
-            line-height: 1.6;
+            line-height: 1.62;
             font-feature-settings: "kern" 1, "liga" 1;
-            background: var(--page);
+            background-color: #eef2f6;
+            background-image:
+                linear-gradient(180deg, rgba(248, 250, 252, 0.97) 0%, rgba(241, 245, 249, 1) 40%, rgba(238, 242, 246, 1) 100%),
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(13, 148, 136, 0.06), transparent 50%);
         }
 
         .resume {
             max-width: var(--max);
             margin: 0 auto;
             background: var(--surface);
-            border-radius: calc(var(--radius) + 4px);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--line);
+            border-radius: calc(var(--radius) + 6px);
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.04),
+                0 2px 4px rgba(15, 23, 42, 0.04),
+                0 12px 40px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(226, 232, 240, 0.9);
             overflow: hidden;
             position: relative;
         }
@@ -83,106 +91,114 @@
         }
 
         .resume__inner {
-            padding: clamp(2rem, 5vw, 3rem);
-            padding-top: clamp(2.25rem, 5vw, 3.25rem);
+            padding: clamp(2rem, 5vw, 3.25rem);
+            padding-top: clamp(2.35rem, 5vw, 3.4rem);
         }
 
         /* Header */
         .hero {
             text-align: center;
-            padding-bottom: 1.75rem;
-            margin-bottom: 0.35rem;
+            padding-bottom: 2rem;
+            margin-bottom: 0;
             position: relative;
             border-bottom: 1px solid var(--line);
         }
 
         .hero__kicker {
-            margin: 0 0 0.85rem;
+            margin: 0 0 1rem;
             font-size: 0.6875rem;
             font-weight: 600;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--muted);
         }
 
         .hero h1 {
-            margin: 0 0 0.75rem;
+            margin: 0 0 0.85rem;
             font-family: var(--font-display);
-            font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+            font-size: clamp(2rem, 4.8vw, 2.65rem);
             font-weight: 700;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.03em;
             color: var(--ink);
-            line-height: 1.12;
+            line-height: 1.08;
         }
 
         .tagline {
-            margin: 0 0 1.25rem;
-            font-size: 0.9375rem;
+            margin: 0 0 1.5rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--ink-soft);
-            letter-spacing: -0.01em;
-            max-width: 32rem;
+            letter-spacing: -0.015em;
+            max-width: 34rem;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.45;
+            line-height: 1.5;
         }
 
         .contact {
             font-style: normal;
             font-size: 0.8125rem;
-            color: var(--muted);
-            line-height: 1.65;
+            line-height: 1.5;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.5rem 0.85rem;
+            gap: 0.5rem 0.6rem;
             align-items: center;
+            max-width: 40rem;
+            margin: 0 auto;
         }
 
-        .contact .sep {
-            opacity: 0.4;
-            user-select: none;
-        }
-
-        .contact a {
-            color: var(--accent-dark);
-            text-decoration: none;
+        .contact__pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
+            background: #f1f5f9;
+            border: 1px solid var(--line);
+            color: var(--ink-soft);
             font-weight: 500;
+        }
+
+        .contact a.contact__pill {
+            color: var(--accent-dark);
+            border-color: var(--accent-muted);
+            background: var(--accent-soft);
             border-bottom: 1px solid var(--accent-muted);
-            transition: color 0.15s ease, border-color 0.15s ease;
+            text-decoration: none;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
-        .contact a:hover,
-        .contact a:focus-visible {
+        .contact a.contact__pill:hover,
+        .contact a.contact__pill:focus-visible {
             color: var(--ink);
-            border-bottom-color: var(--ink-soft);
+            background: #ecfdf5;
+            border-color: rgba(13, 148, 136, 0.35);
         }
 
-        .contact a:focus-visible {
+        .contact a.contact__pill:focus-visible {
             outline: 2px solid var(--accent);
-            outline-offset: 3px;
-            border-radius: 2px;
+            outline-offset: 2px;
         }
 
         /* Sections */
         .section {
-            margin-top: 2.25rem;
+            margin-top: var(--section-space);
         }
 
         .section:first-of-type {
-            margin-top: 1.75rem;
+            margin-top: 2rem;
         }
 
         .section-title {
             display: block;
-            margin: 0 0 1.15rem;
+            margin: 0 0 1.25rem;
             font-family: var(--font-body);
             font-size: 0.6875rem;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--muted);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.55rem;
             border-bottom: 2px solid var(--line);
             position: relative;
         }
@@ -192,9 +208,10 @@
             position: absolute;
             left: 0;
             bottom: -2px;
-            width: 2.5rem;
+            width: 3rem;
             height: 2px;
             background: var(--accent);
+            border-radius: 1px;
         }
 
         .section-title span {
@@ -202,6 +219,13 @@
         }
 
         /* Skills */
+        .skills-panel {
+            background: linear-gradient(180deg, #fafbfc 0%, #f8fafc 100%);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.25rem 1.15rem;
+        }
+
         .skills-list {
             margin: 0;
             padding: 0;
@@ -210,8 +234,8 @@
 
         .skills-list li {
             position: relative;
-            padding: 0.7rem 0 0.7rem 0;
-            border-bottom: 1px solid var(--line);
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.85);
             margin-bottom: 0;
         }
 
@@ -219,28 +243,31 @@
             border-bottom: none;
         }
 
-        .skills-list li:hover {
-            background: transparent;
-        }
-
         .skills-list strong {
             font-weight: 600;
             color: var(--ink);
         }
 
+        @media (min-width: 640px) {
+            .skills-panel {
+                padding: 0.35rem 1.35rem;
+            }
+        }
+
         /* Jobs */
         .job {
-            padding: 1.25rem 1.35rem;
-            margin-bottom: 1rem;
-            background: #fafbfc;
+            padding: 1.35rem 1.4rem;
+            margin-bottom: 1.1rem;
+            background: var(--surface);
             border: 1px solid var(--line);
             border-radius: var(--radius);
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
             transition: box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .job:hover {
             box-shadow: var(--shadow-hover);
-            border-color: var(--line-strong);
+            border-color: rgba(148, 163, 184, 0.5);
         }
 
         .job:last-of-type {
@@ -310,12 +337,12 @@
             margin: 0;
             padding: 0;
             display: grid;
-            gap: 0.85rem;
+            gap: 1rem;
         }
 
         @media (min-width: 520px) {
             .repo-grid {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             }
         }
 
@@ -326,14 +353,15 @@
         .repo-card__link {
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
+            gap: 0.5rem;
+            min-height: 10.5rem;
             height: 100%;
-            padding: 1.1rem 1.2rem;
+            padding: 1.2rem 1.25rem;
             text-decoration: none;
             color: inherit;
-            background: #fafbfc;
+            background: linear-gradient(165deg, #fafbfc 0%, #f8fafc 100%);
             border: 1px solid var(--line);
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius);
             transition: box-shadow 0.18s ease, border-color 0.18s ease;
         }
 
@@ -368,7 +396,18 @@
         .repo-card__desc {
             font-size: 0.8125rem;
             color: var(--ink-soft);
-            line-height: 1.5;
+            line-height: 1.55;
+        }
+
+        .repo-card__desc code {
+            font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+            font-size: 0.78em;
+            font-weight: 500;
+            color: var(--accent-dark);
+            background: var(--accent-soft);
+            padding: 0.12em 0.35em;
+            border-radius: 4px;
+            border: 1px solid rgba(13, 148, 136, 0.15);
         }
 
         .repo-card__meta {
@@ -381,33 +420,19 @@
             padding-top: 0.4rem;
         }
 
-        .repo-note {
-            margin: 0 0 1rem;
-            font-size: 0.8125rem;
-            color: var(--ink-soft);
-            line-height: 1.55;
-        }
-
-        .repo-note a {
-            color: var(--accent-dark);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent-muted);
-        }
-
-        .repo-note a:hover {
-            color: var(--ink);
-            border-bottom-color: var(--ink-soft);
-        }
-
         /* Footer */
         footer {
-            margin-top: 2.25rem;
-            padding-top: 1.35rem;
+            margin-top: var(--section-space);
+            padding: 1.5rem 1rem 0.25rem;
             border-top: 1px solid var(--line);
             text-align: center;
             font-size: 0.75rem;
             color: var(--muted);
-            letter-spacing: 0.02em;
+            letter-spacing: 0.03em;
+        }
+
+        footer p {
+            margin: 0;
         }
 
         @media print {
@@ -430,18 +455,38 @@
                 padding: 0.6in;
             }
 
+            .skills-panel {
+                background: #fff;
+                border: 1px solid #ccc;
+            }
+
+            .contact__pill {
+                background: transparent;
+                border: 1px solid #ccc;
+                color: var(--ink-soft);
+            }
+
             .job:hover,
             .repo-card__link:hover {
                 box-shadow: none;
             }
 
-            .contact a {
+            .contact a.contact__pill {
                 color: var(--ink-soft);
-                border: none;
+                border: 1px solid #ccc;
+                background: transparent;
             }
 
             .repo-card__link {
                 break-inside: avoid;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .contact a.contact__pill,
+            .job,
+            .repo-card__link {
+                transition: none;
             }
         }
     </style>
@@ -454,18 +499,16 @@
                 <h1>Jackline Namanda</h1>
                 <p class="tagline">QA Lead · Release management · Technical program management</p>
                 <address class="contact">
-                    <span>Tacoma, WA 98374</span>
-                    <span class="sep" aria-hidden="true">·</span>
-                    <a href="mailto:jnamanda22@gmail.com">jnamanda22@gmail.com</a>
-                    <span class="sep" aria-hidden="true">·</span>
-                    <a href="tel:+12533804935">253-380-4935</a>
-                    <span class="sep" aria-hidden="true">·</span>
-                    <a href="https://github.com/jkaweesi22" rel="noopener noreferrer">GitHub</a>
+                    <span class="contact__pill">Tacoma, WA 98445</span>
+                    <a class="contact__pill" href="mailto:jnamanda22@gmail.com">jnamanda22@gmail.com</a>
+                    <a class="contact__pill" href="tel:+12533804935">253-380-4935</a>
+                    <a class="contact__pill" href="https://github.com/jkaweesi22" rel="noopener noreferrer">GitHub</a>
                 </address>
             </header>
 
             <section class="section" aria-labelledby="skills-heading">
                 <h2 id="skills-heading" class="section-title"><span>Skills</span></h2>
+                <div class="skills-panel">
                 <ul class="skills-list">
                     <li><strong>Program &amp; Project Management:</strong> Agile/Scrum, SDLC, Kanban, Jira, Confluence, Risk Management, Executive Stakeholder Communication</li>
                     <li><strong>Quality Assurance &amp; Testing:</strong> Test Automation, Regression, Release Management, Change Management, Playwright, Customer UAT</li>
@@ -476,6 +519,7 @@
                     <li><strong>UI/UX &amp; Prototyping:</strong> UI/UX Design, Balsamiq Mockups, Prototyping, Human Computer Interaction</li>
                     <li><strong>Technical Writing &amp; Documentation:</strong> System Design, Process Documentation, Technical Writing, Training Materials</li>
                 </ul>
+                </div>
             </section>
 
             <section class="section" aria-labelledby="employment-heading">
@@ -530,11 +574,6 @@
 
             <section class="section" aria-labelledby="github-heading">
                 <h2 id="github-heading" class="section-title"><span>Featured on GitHub Pages</span></h2>
-                <p class="repo-note">Cards open the project sites hosted on this Pages deployment. Source code:
-                    <a href="https://github.com/jkaweesi22/InHim" rel="noopener noreferrer">jkaweesi22/InHim</a>
-                    <span aria-hidden="true"> · </span>
-                    <a href="https://github.com/Phaneroo/github-delivery-operating-system" rel="noopener noreferrer">Phaneroo/github-delivery-operating-system</a>
-                </p>
                 <ul class="repo-grid">
                     <li class="repo-card">
                         <a class="repo-card__link" href="inhim/">
@@ -552,7 +591,7 @@
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                                 GitHub Delivery Operating System
                             </span>
-                            <span class="repo-card__desc">GitHub-native delivery governance: sprint child issues, burn-down, QA assignment, dual approval for production, optional Telegram—installed via npm package <code style="font-size:0.85em">github-delivery-os</code>.</span>
+                            <span class="repo-card__desc">GitHub-native delivery governance: sprint child issues, burn-down, QA assignment, dual approval for production, optional Telegram—installed via npm package <code>github-delivery-os</code>.</span>
                             <span class="repo-card__meta">Project page · this site</span>
                         </a>
                     </li>
