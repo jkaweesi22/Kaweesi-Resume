@@ -1,4 +1,4 @@
-# Deploy static site (resume + /inhim) to GitHub Pages.
+# Deploy static site (home, portfolio, résumé, subprojects) to GitHub Pages.
 # Repository Settings → Pages → Build and deployment → Source: GitHub Actions
 
 name: Deploy GitHub Pages

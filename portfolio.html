@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio — Jackline Namanda: project sites, tools, and GitHub Pages work.">
+    <meta name="theme-color" content="#f1f5f9">
+    <title>Portfolio — Jackline Namanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-logo" href="index.html">Jackline Namanda</a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="portfolio.html" aria-current="page">Portfolio</a>
+                <a href="resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main" id="main">
+        <div class="page-card">
+            <div class="page-card__inner">
+                <header class="page-header">
+                    <h1 class="page-header__title">Portfolio</h1>
+                    <p class="page-header__desc">Selected project pages hosted on this site—tools, extensions, and delivery workflows you can explore live.</p>
+                </header>
+
+                <section class="section" aria-labelledby="projects-heading">
+                    <h2 id="projects-heading" class="section-title"><span>Project sites</span></h2>
+                    <ul class="repo-grid">
+                        <li class="repo-card">
+                            <a class="repo-card__link" href="inhim/">
+                                <span class="repo-card__name">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                    In Him — Daily Scripture
+                                </span>
+                                <span class="repo-card__desc">Chrome extension (Manifest V3): a calm, KJV-centered new tab with morning/afternoon/evening rhythm, Unsplash backgrounds, favorites, section filters, and keyboard shortcuts.</span>
+                                <span class="repo-card__meta">Live · this site</span>
+                            </a>
+                        </li>
+                        <li class="repo-card">
+                            <a class="repo-card__link" href="github-delivery-operating-system/">
+                                <span class="repo-card__name">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                    GitHub Delivery Operating System
+                                </span>
+                                <span class="repo-card__desc">GitHub-native delivery governance: sprint child issues, burn-down, QA assignment, dual approval for production, optional Telegram—installed via npm package <code>github-delivery-os</code>.</span>
+                                <span class="repo-card__meta">Live · this site</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="section" aria-labelledby="more-heading">
+                    <h2 id="more-heading" class="section-title"><span>More</span></h2>
+                    <p class="home-intro" style="margin-bottom: 0;">Additional repositories and case studies can live here as cards—duplicate a project block in <code>portfolio.html</code> or link out to GitHub. See also <a href="https://github.com/jkaweesi22" rel="noopener noreferrer">github.com/jkaweesi22</a>.</p>
+                </section>
+
+                <footer>
+                    <p>© <span id="year-portfolio"></span> Jackline Namanda</p>
+                </footer>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="year"></span> Jackline Namanda · <a href="index.html">Home</a> · <a href="resume.html">Résumé</a></p>
+    </footer>
+    <script>
+        var y = String(new Date().getFullYear());
+        document.getElementById("year").textContent = y;
+        document.getElementById("year-portfolio").textContent = y;
+    </script>
+</body>
+</html>
