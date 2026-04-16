@@ -751,6 +751,77 @@ body {
     padding-top: 0.4rem;
 }
 
+.section-lede {
+    margin: -0.35rem 0 1rem;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 42rem;
+}
+
+.section-lede:last-child {
+    margin-bottom: 0;
+}
+
+/* Card with several explicit links (e.g. one doc hub + repo + sections) */
+.repo-card__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 10.5rem;
+    height: 100%;
+    padding: 1.2rem 1.25rem;
+    background: linear-gradient(165deg, #fafbfc 0%, #f8fafc 100%);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.repo-card__panel:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-muted);
+}
+
+.repo-card__panel .repo-card__name {
+    margin: 0;
+}
+
+.repo-card__panel h3.repo-card__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.repo-card__sublinks {
+    list-style: none;
+    margin: 0.15rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.repo-card__sublinks a {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.repo-card__sublinks a:hover,
+.repo-card__sublinks a:focus-visible {
+    color: var(--accent);
+    border-bottom-color: rgba(13, 148, 136, 0.45);
+}
+
+.repo-card__sublinks a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
 .page-card footer {
     margin-top: var(--section-space);
     padding: 1.5rem 1rem 0.25rem;
@@ -826,7 +897,8 @@ body {
     }
 
     .job:hover,
-    .repo-card__link:hover {
+    .repo-card__link:hover,
+    .repo-card__panel:hover {
         box-shadow: none;
     }
 
@@ -836,7 +908,8 @@ body {
         background: transparent;
     }
 
-    .repo-card__link {
+    .repo-card__link,
+    .repo-card__panel {
         break-inside: avoid;
     }
 
@@ -849,6 +922,7 @@ body {
     .contact a.contact__pill,
     .job,
     .repo-card__link,
+    .repo-card__panel,
     .btn,
     .highlight-card {
         transition: none;

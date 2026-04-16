@@ -28,11 +28,13 @@
             <div class="page-card__inner">
                 <header class="page-header">
                     <h1 class="page-header__title">Portfolio</h1>
-                    <p class="page-header__desc">Selected project pages hosted on this site—tools, extensions, and delivery workflows you can explore live.</p>
+                    <p class="page-header__desc">Project sites, documentation hubs, and tools—grouped so you can browse what is live and what to read next.</p>
                 </header>
 
                 <section class="section" aria-labelledby="projects-heading">
                     <h2 id="projects-heading" class="section-title"><span>Project sites</span></h2>
+                    <p class="section-lede">Interactive projects hosted on this domain.</p>
+                    <!-- Add another project: copy a full <li class="repo-card">…</li> block. -->
                     <ul class="repo-grid">
                         <li class="repo-card">
                             <a class="repo-card__link" href="inhim/">
@@ -57,9 +59,31 @@
                     </ul>
                 </section>
 
+                <section class="section" aria-labelledby="docs-heading">
+                    <h2 id="docs-heading" class="section-title"><span>Documentation</span></h2>
+                    <p class="section-lede">Published guides and reference material—one card can surface several links (site, repo, and more).</p>
+                    <!-- Add another doc set: copy a full <li class="repo-card">…</li>. Inside a panel, add <li><a>…</a></li> under .repo-card__sublinks. -->
+                    <ul class="repo-grid">
+                        <li class="repo-card">
+                            <article class="repo-card__panel" aria-labelledby="doc-qae-heading">
+                                <h3 id="doc-qae-heading" class="repo-card__name">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+                                    QAEssentials
+                                </h3>
+                                <p class="repo-card__desc">Practical QA documentation: processes, reference material, and a quality-first culture—hosted on GitHub Pages.</p>
+                                <ul class="repo-card__sublinks">
+                                    <li><a href="https://jkaweesi22.github.io/QAEssentials/" rel="noopener noreferrer">Browse documentation site</a></li>
+                                    <li><a href="https://github.com/jkaweesi22/QAEssentials" rel="noopener noreferrer">Source on GitHub</a></li>
+                                </ul>
+                                <span class="repo-card__meta">Live · GitHub Pages</span>
+                            </article>
+                        </li>
+                    </ul>
+                </section>
+
                 <section class="section" aria-labelledby="more-heading">
                     <h2 id="more-heading" class="section-title"><span>More</span></h2>
-                    <p class="home-intro" style="margin-bottom: 0;">Additional repositories and case studies can live here as cards—duplicate a project block in <code>portfolio.html</code> or link out to GitHub. See also <a href="https://github.com/jkaweesi22" rel="noopener noreferrer">github.com/jkaweesi22</a>.</p>
+                    <p class="home-intro" style="margin-bottom: 0;">More repositories and case studies can appear here over time. See also <a href="https://github.com/jkaweesi22" rel="noopener noreferrer">github.com/jkaweesi22</a>.</p>
                 </section>
 
                 <footer>
